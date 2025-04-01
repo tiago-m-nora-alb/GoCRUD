@@ -26,6 +26,23 @@ info:
   title: Swagger GO API
   version: "1.0"
 paths:
+  /health:
+    get:
+      consumes:
+      - application/json
+      description: Responds with a hello message from the Product Controller
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Greets from Product Controller
+      tags:
+      - Status
   /image:
     post:
       consumes:
@@ -147,23 +164,6 @@ paths:
       summary: Update a product by ID
       tags:
       - Products
-  /status/health:
-    get:
-      consumes:
-      - application/json
-      description: Responds with a hello message from the Product Controller
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            additionalProperties:
-              type: string
-            type: object
-      summary: Greets from Product Controller
-      tags:
-      - Status
 securityDefinitions:
   bearerToken:
     in: header

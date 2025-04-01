@@ -24,7 +24,7 @@ func NewHealthController() HealthController {
 // @Accept json
 // @Produce json
 // @Success 200 {object} map[string]string
-// @Router /status/health [get]
+// @Router /health [get]
 func (p *healthController) Health(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "Hello from Product Controller"})
 	log.Info().Msg("Called Hello from Product Controller")

@@ -39,7 +39,7 @@ func ConnectDatabase() {
 		log.Fatal().Msgf("Failed to connect to the database: %v", err)
 	}
 
-	err = DB.AutoMigrate(&schemas.Product{})
+	err = DB.AutoMigrate(&schemas.Product{}, &schemas.Author{}, &schemas.Book{},)
 	if err != nil {
 		log.Fatal().Msg("Could not migrate the database")
 	}
