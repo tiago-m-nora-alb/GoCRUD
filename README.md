@@ -7,10 +7,10 @@ To do list:
 - [x] Kafka
 - [x] Gin
 - [x] Prometheus
-  - [ ] Add metrics
+  - [ ] Add metrics
 - [x] Gin
 - [x] GORM
-  - [ ] Migration (dentro do go ou flyway)
-  - [ ] Nested Objects
+  - [ ] Migration (dentro do go ou flyway)
+  - [ ] Nested Objects
 - [x] Http Requests
 - [ ] IAM
