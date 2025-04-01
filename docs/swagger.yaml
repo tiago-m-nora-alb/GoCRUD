@@ -93,6 +93,90 @@ paths:
       summary: Get an image from MinIO
       tags:
       - image
+  /nested/authors:
+    get:
+      responses: {}
+  /nested/authors/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Find author by id
+      parameters:
+      - description: Author ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      summary: Find author by id
+      tags:
+      - Nested
+  /nested/books:
+    get:
+      consumes:
+      - application/json
+      description: Find all books
+      produces:
+      - application/json
+      responses: {}
+      summary: Find all books
+      tags:
+      - Nested
+  /nested/books/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Find book by id
+      parameters:
+      - description: Book ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      summary: Find book by id
+      tags:
+      - Nested
+  /nested/createAuthor:
+    post:
+      consumes:
+      - application/json
+      description: Create author
+      parameters:
+      - description: Author object
+        in: body
+        name: author
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses: {}
+      summary: Create author
+      tags:
+      - Nested
+  /nested/createBook:
+    post:
+      consumes:
+      - application/json
+      description: Create book
+      parameters:
+      - description: Book object
+        in: body
+        name: book
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses: {}
+      summary: Create book
+      tags:
+      - Nested
   /product:
     get:
       description: Find all products

@@ -47,7 +47,6 @@ func main() {
 		return
 	}
 	port := os.Getenv("PORT")
-
 	router := gin.New()
 	router.Use(gin.Recovery())
 	router.GET("/metrics", gin.WrapH(promhttp.Handler()))

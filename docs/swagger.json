@@ -115,6 +115,131 @@
                 }
             }
         },
+        "/nested/authors": {
+            "get": {
+                "responses": {}
+            }
+        },
+        "/nested/authors/{id}": {
+            "get": {
+                "description": "Find author by id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Nested"
+                ],
+                "summary": "Find author by id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Author ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {}
+            }
+        },
+        "/nested/books": {
+            "get": {
+                "description": "Find all books",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Nested"
+                ],
+                "summary": "Find all books",
+                "responses": {}
+            }
+        },
+        "/nested/books/{id}": {
+            "get": {
+                "description": "Find book by id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Nested"
+                ],
+                "summary": "Find book by id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Book ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {}
+            }
+        },
+        "/nested/createAuthor": {
+            "post": {
+                "description": "Create author",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Nested"
+                ],
+                "summary": "Create author",
+                "parameters": [
+                    {
+                        "description": "Author object",
+                        "name": "author",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {}
+            }
+        },
+        "/nested/createBook": {
+            "post": {
+                "description": "Create book",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Nested"
+                ],
+                "summary": "Create book",
+                "parameters": [
+                    {
+                        "description": "Book object",
+                        "name": "book",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {}
+            }
+        },
         "/product": {
             "get": {
                 "description": "Find all products",

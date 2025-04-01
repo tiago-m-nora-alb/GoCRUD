@@ -9,4 +9,5 @@ func AllRoutes(engine *gin.Engine) {
 	HealthRoutes(engine)
 	ImageRoutes(engine)
 	RequestRoutes(engine)
+	NestedRoutes(engine)
 }
