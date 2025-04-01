@@ -3,6 +3,7 @@ package kafkaConfig
 import (
 	"encoding/json"
 	"os"
+	"sync"
 	"time"
 
 	"github.com/confluentinc/confluent-kafka-go/kafka"
@@ -13,19 +14,26 @@ type Consumer struct {
 	consumer *kafka.Consumer
 }
 
+var consumerInstance *Consumer
+var onceConsumer sync.Once
+
 func NewConsumer() (*Consumer, error) {
-	c, err := kafka.NewConsumer(&kafka.ConfigMap{
-		"bootstrap.servers":  os.Getenv("KAFKA_SERVERS"),
-		"auto.offset.reset":  os.Getenv("KAFKA_AUTO_OFFSET_RESET"),
-		"enable.auto.commit": os.Getenv("KAFKA_ENABLE_AUTO_COMMIT"),
-		"group.id":           os.Getenv("KAFKA_GROUP_ID"),
+	var err error
+	onceConsumer.Do(func() {
+		c, e := kafka.NewConsumer(&kafka.ConfigMap{
+			"bootstrap.servers":  os.Getenv("KAFKA_SERVERS"),
+			"auto.offset.reset":  os.Getenv("KAFKA_AUTO_OFFSET_RESET"),
+			"enable.auto.commit": os.Getenv("KAFKA_ENABLE_AUTO_COMMIT"),
+			"group.id":           os.Getenv("KAFKA_GROUP_ID"),
+		})
+		if e != nil {
+			err = e
+			return
+		}
+		consumerInstance = &Consumer{consumer: c}
+		log.Info().Msg("Kafka consumer created")
 	})
-
-	if err != nil {
-		return nil, err
-	}
-
-	return &Consumer{consumer: c}, nil
+	return consumerInstance, err
 }
 
 func (c *Consumer) Subscribe(topics []string) error {

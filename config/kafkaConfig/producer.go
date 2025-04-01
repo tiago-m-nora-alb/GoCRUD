@@ -3,9 +3,15 @@ package kafkaConfig
 import (
 	"encoding/json"
 	"os"
+	"sync"
 
 	"github.com/confluentinc/confluent-kafka-go/kafka"
 	"github.com/rs/zerolog/log"
+)
+
+var (
+	producerInstance *Producer
+	onceProducer     sync.Once
 )
 
 type Producer struct {
@@ -13,26 +19,30 @@ type Producer struct {
 }
 
 func NewProducer() (*Producer, error) {
-	p, err := kafka.NewProducer(&kafka.ConfigMap{
-		"bootstrap.servers": os.Getenv("KAFKA_SERVERS"),
-	})
+	var err error
+	onceProducer.Do(func() {
+		p, e := kafka.NewProducer(&kafka.ConfigMap{
+			"bootstrap.servers": os.Getenv("KAFKA_SERVERS"),
+		})
+		if e != nil {
+			err = e
+			return
+		}
 
-	if err != nil {
-		return nil, err
-	}
-
-	go func() {
-		for e := range p.Events() {
-			switch ev := e.(type) {
-			case *kafka.Message:
-				if ev.TopicPartition.Error != nil {
-					log.Printf("Falha ao entregar mensagem: %v\n", ev.TopicPartition.Error)
+		go func() {
+			for e := range p.Events() {
+				switch ev := e.(type) {
+				case *kafka.Message:
+					if ev.TopicPartition.Error != nil {
+						log.Printf("Falha ao entregar mensagem: %v\n", ev.TopicPartition.Error)
+					}
 				}
 			}
-		}
-	}()
+		}()
 
-	return &Producer{producer: p}, nil
+		producerInstance = &Producer{producer: p}
+	})
+	return producerInstance, err
 }
 
 func (p *Producer) SendMessage(topic string, key string, value interface{}) error {

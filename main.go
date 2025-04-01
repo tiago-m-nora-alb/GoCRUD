@@ -1,7 +1,10 @@
 package main
 
 import (
+	"os"
+
 	"github.com/TiagoNora/GoCRUDV2/config/db"
+	"github.com/TiagoNora/GoCRUDV2/config/kafkaConfig"
 	"github.com/TiagoNora/GoCRUDV2/config/logger"
 	"github.com/TiagoNora/GoCRUDV2/config/minioClient"
 	"github.com/TiagoNora/GoCRUDV2/consumers"
@@ -12,7 +15,6 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	swaggerfiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
-	"os"
 )
 
 // @title           Swagger GO API
@@ -32,6 +34,7 @@ import (
 func init() {
 	logger.InitLogger()
 	db.ConnectDatabase()
+	kafkaConfig.CreateTopics()
 	consumers.ConsumeTopics()
 	minioClient.NewMinioClient()
 }
