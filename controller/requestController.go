@@ -19,7 +19,11 @@ type message struct {
 	Info string `json:"message"`
 }
 
-
+// @Summary      Make a request to a endpoint
+// @Description  Make a request to a endpoint
+// @Tags         Request
+// @Accept       json
+// @Produce      json
 func (r *requestController) MakeRequest(c *gin.Context) {
 	log.Info().Msg("Request to a endpoint")
 	result, err := http.Get("http://localhost:8000/health")

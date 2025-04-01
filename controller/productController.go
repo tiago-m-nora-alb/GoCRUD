@@ -52,6 +52,14 @@ func (p *productController) Create(c *gin.Context) {
 
 }
 
+// @Summary      Update a product by ID
+// @Description  Update a product by ID with name, description, price, and stock
+// @Tags         Products
+// @Accept       json
+// @Produce      json
+// @Param        id       path      string  true  "Product ID"
+// @Param        product  body      schemas.ProductRequest  true  "Product data"
+// @Router       /product/{id} [put]
 func (p *productController) Update(c *gin.Context) {
 	log.Info().Msgf("Called update from Product Controller id: %s", c.Param("id"))
 	id := c.Param("id")
@@ -84,6 +92,11 @@ func (p *productController) Update(c *gin.Context) {
 
 }
 
+// @Summary      Delete a product by ID
+// @Description  Delete a product by ID
+// @Tags         Products
+// @Param        id  path      string  true  "Product ID"
+// @Router       /product/{id} [delete]
 func (p *productController) Delete(c *gin.Context) {
 	log.Info().Msgf("Called delete from Product Controller id: %s", c.Param("id"))
 	idParam := c.Param("id")
@@ -95,6 +108,12 @@ func (p *productController) Delete(c *gin.Context) {
 	sendSuccess(c, "delete-product", product)
 }
 
+
+// @Summary      Find a product by ID
+// @Description  Find a product by ID
+// @Tags         Products
+// @Param        id  path      string  true  "Product ID"
+// @Router       /product/{id} [get]
 func (p *productController) FindById(c *gin.Context) {
 	log.Info().Msgf("Called find by id from Product Controller id: %s", c.Param("id"))
 	idParam := c.Param("id")
@@ -106,6 +125,10 @@ func (p *productController) FindById(c *gin.Context) {
 	sendSuccess(c, "get-product", product)
 }
 
+// @Summary      Find all products
+// @Description  Find all products
+// @Tags         Products
+// @Router       /product [get]
 func (p *productController) FindAll(c *gin.Context) {
 	log.Info().Msg("Called findAll from Product Controller")
 	all, err := p.productService.FindAll()

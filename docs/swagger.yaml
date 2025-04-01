@@ -26,7 +26,63 @@ info:
   title: Swagger GO API
   version: "1.0"
 paths:
+  /image:
+    post:
+      consumes:
+      - multipart/form-data
+      description: Upload an image to MinIO bucket "imagens"
+      parameters:
+      - description: File to upload
+        in: formData
+        name: file
+        required: true
+        type: file
+      responses:
+        "200":
+          description: Success message with file name
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Error message
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Upload an image to MinIO
+      tags:
+      - image
+  /image/{fileName}:
+    get:
+      description: Get an image from MinIO bucket "imagens"
+      parameters:
+      - description: File name to retrieve
+        in: path
+        name: fileName
+        required: true
+        type: string
+      responses:
+        "200":
+          description: Image file
+          schema:
+            type: file
+        "400":
+          description: Error message
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get an image from MinIO
+      tags:
+      - image
   /product:
+    get:
+      description: Find all products
+      responses: {}
+      summary: Find all products
+      tags:
+      - Products
     post:
       consumes:
       - application/json
@@ -42,6 +98,53 @@ paths:
       - application/json
       responses: {}
       summary: Create a new product
+      tags:
+      - Products
+  /product/{id}:
+    delete:
+      description: Delete a product by ID
+      parameters:
+      - description: Product ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses: {}
+      summary: Delete a product by ID
+      tags:
+      - Products
+    get:
+      description: Find a product by ID
+      parameters:
+      - description: Product ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses: {}
+      summary: Find a product by ID
+      tags:
+      - Products
+    put:
+      consumes:
+      - application/json
+      description: Update a product by ID with name, description, price, and stock
+      parameters:
+      - description: Product ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Product data
+        in: body
+        name: product
+        required: true
+        schema:
+          $ref: '#/definitions/schemas.ProductRequest'
+      produces:
+      - application/json
+      responses: {}
+      summary: Update a product by ID
       tags:
       - Products
   /status/health:

@@ -19,7 +19,91 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/image": {
+            "post": {
+                "description": "Upload an image to MinIO bucket \"imagens\"",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "tags": [
+                    "image"
+                ],
+                "summary": "Upload an image to MinIO",
+                "parameters": [
+                    {
+                        "type": "file",
+                        "description": "File to upload",
+                        "name": "file",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success message with file name",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error message",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/image/{fileName}": {
+            "get": {
+                "description": "Get an image from MinIO bucket \"imagens\"",
+                "tags": [
+                    "image"
+                ],
+                "summary": "Get an image from MinIO",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "File name to retrieve",
+                        "name": "fileName",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Image file",
+                        "schema": {
+                            "type": "file"
+                        }
+                    },
+                    "400": {
+                        "description": "Error message",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/product": {
+            "get": {
+                "description": "Find all products",
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Find all products",
+                "responses": {}
+            },
             "post": {
                 "description": "Create a new product with name, description, price, and stock",
                 "consumes": [
@@ -41,6 +125,74 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/schemas.ProductRequest"
                         }
+                    }
+                ],
+                "responses": {}
+            }
+        },
+        "/product/{id}": {
+            "get": {
+                "description": "Find a product by ID",
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Find a product by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Product ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {}
+            },
+            "put": {
+                "description": "Update a product by ID with name, description, price, and stock",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Update a product by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Product ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Product data",
+                        "name": "product",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/schemas.ProductRequest"
+                        }
+                    }
+                ],
+                "responses": {}
+            },
+            "delete": {
+                "description": "Delete a product by ID",
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Delete a product by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Product ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
                     }
                 ],
                 "responses": {}

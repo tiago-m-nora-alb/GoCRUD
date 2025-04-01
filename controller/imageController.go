@@ -18,6 +18,14 @@ type imageController struct {
 	minio *minio.Client
 }
 
+// @Summary Upload an image to MinIO
+// @Description Upload an image to MinIO bucket "imagens"
+// @Tags image
+// @Accept multipart/form-data
+// @Param file formData file true "File to upload"
+// @Success 200 {object} map[string]string "Success message with file name"
+// @Failure 400 {object} map[string]string "Error message"
+// @Router /image [post]
 func (i imageController) CreateImage(c *gin.Context) {
 	file, fileHeader, err := c.Request.FormFile("file")
 	if err != nil {
@@ -58,6 +66,13 @@ func (i imageController) CreateImage(c *gin.Context) {
 	sendSuccess(c, "Upload", objectName)
 }
 
+// @Summary Get an image from MinIO
+// @Description Get an image from MinIO bucket "imagens"
+// @Tags image
+// @Param fileName path string true "File name to retrieve"
+// @Success 200 {file} file "Image file"
+// @Failure 400 {object} map[string]string "Error message"
+// @Router /image/{fileName} [get]
 func (i imageController) GetImage(c *gin.Context) {
 	fileName := c.Param("fileName")
 	if fileName == "" {

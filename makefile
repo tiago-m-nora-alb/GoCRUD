@@ -1,15 +1,12 @@
-.PHONY: default run build test docs clean dev
+.PHONY: defaultbuild test docs clean dev
 # Variables
 APP_NAME=gocrud
 
 # Tasks
-default: dev
+default: run-with-docs
 
-run:
-	@go run main.go
 run-with-docs:
-	@swag init
-	@go run main.go
+	@export PATH=$$PATH:$(shell go env GOPATH)/bin && swag init && go run main.go
 build:
 	@go build -o $(APP_NAME) main.go
 test:
