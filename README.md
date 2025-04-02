@@ -19,4 +19,4 @@ To do list:
 
 ## Topics in consideration
 
-- ORM (GORM) or raw sql (sqlc can be go solution or even a better solution than GORM)
+- ORM (GORM) or raw sql (sqlc or sqlx can be better solutions than GORM)
