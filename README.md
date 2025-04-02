@@ -11,6 +11,12 @@ To do list:
 - [x] Gin
 - [x] GORM
   - [ ] Migration (dentro do go ou flyway)
-  - [ ] Nested Objects
+  - [ ] One-to-Many Relationship
+  - [ ] Many-To-Many Relationship
 - [x] Http Requests
+- [ ] Pagination for the all the gets requests
 - [ ] IAM
+
+## Topics in consideration
+
+- ORM (GORM) or raw sql (sqlc can be go solution or even a better solution than GORM)
