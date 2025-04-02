@@ -69,7 +69,7 @@ paths:
             type: object
       summary: Upload an image to MinIO
       tags:
-      - image
+      - Image
   /image/{fileName}:
     get:
       description: Get an image from MinIO bucket "imagens"
@@ -92,10 +92,18 @@ paths:
             type: object
       summary: Get an image from MinIO
       tags:
-      - image
+      - Image
   /nested/authors:
     get:
+      consumes:
+      - application/json
+      description: Find all authors
+      produces:
+      - application/json
       responses: {}
+      summary: Find all authors
+      tags:
+      - Nested
   /nested/authors/{id}:
     get:
       consumes:

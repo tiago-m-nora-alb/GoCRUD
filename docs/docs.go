@@ -52,7 +52,7 @@ const docTemplate = `{
                     "multipart/form-data"
                 ],
                 "tags": [
-                    "image"
+                    "Image"
                 ],
                 "summary": "Upload an image to MinIO",
                 "parameters": [
@@ -90,7 +90,7 @@ const docTemplate = `{
             "get": {
                 "description": "Get an image from MinIO bucket \"imagens\"",
                 "tags": [
-                    "image"
+                    "Image"
                 ],
                 "summary": "Get an image from MinIO",
                 "parameters": [
@@ -123,6 +123,17 @@ const docTemplate = `{
         },
         "/nested/authors": {
             "get": {
+                "description": "Find all authors",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Nested"
+                ],
+                "summary": "Find all authors",
                 "responses": {}
             }
         },

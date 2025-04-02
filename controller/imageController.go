@@ -20,7 +20,7 @@ type imageController struct {
 
 // @Summary Upload an image to MinIO
 // @Description Upload an image to MinIO bucket "imagens"
-// @Tags image
+// @Tags Image
 // @Accept multipart/form-data
 // @Param file formData file true "File to upload"
 // @Success 200 {object} map[string]string "Success message with file name"
@@ -68,7 +68,7 @@ func (i imageController) CreateImage(c *gin.Context) {
 
 // @Summary Get an image from MinIO
 // @Description Get an image from MinIO bucket "imagens"
-// @Tags image
+// @Tags Image
 // @Param fileName path string true "File name to retrieve"
 // @Success 200 {file} file "Image file"
 // @Failure 400 {object} map[string]string "Error message"

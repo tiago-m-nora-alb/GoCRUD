@@ -64,7 +64,6 @@ func (n *nestedController) FindAuthorById(c *gin.Context) {
 // @Tags Nested
 // @Accept json
 // @Produce json
-
 // @Router /nested/authors [get]
 func (n *nestedController) FindAllAuthors(c *gin.Context) {
 	log.Info().Msg("Called find all authors from Nested Controller")
